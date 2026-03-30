@@ -24,10 +24,12 @@ namespace Business
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<ShowroomProfiles>();
+                cfg.AddProfile<AuthProfiles>();
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IShowroomService, ShowroomService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         } 

@@ -1,4 +1,5 @@
-﻿using Core.Abstracts.IServices;
+﻿using AutoMapper;
+using Core.Abstracts.IServices;
 using Core.Concretes.DTOs;
 using Core.Concretes.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -10,12 +11,14 @@ namespace Business.Services
     {
         private readonly UserManager<Customer> userManager;
         private readonly SignInManager<Customer> signInManager;
+        private readonly IMapper mapper;
 
 
-        public AuthService(UserManager<Customer> userManager, SignInManager<Customer> signInManager)
+        public AuthService(UserManager<Customer> userManager, SignInManager<Customer> signInManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.mapper = mapper;
         }
 
         public async Task<IResult> LoginAsync(LoginDto model)
@@ -59,14 +62,33 @@ namespace Business.Services
             }
         }
 
+        // Kullanıcı oturumunu kapat
         public async Task LogoutAsync()
         {
+            // Sistemde kayıtlı olan kullanıcının oturumunu sonlandır
             await signInManager.SignOutAsync();
         }
 
-        public Task<IResult> RegisterAsync(RegisterDto model)
+        // Yeni müşteri kaydı oluştur
+        public async Task<IResult> RegisterAsync(RegisterDto model)
         {
-            throw new NotImplementedException();
+            // RegisterDto modelini Customer entity'sine dönüştür
+            var customer = mapper.Map<Customer>(model);
+
+            // Dönüştürülen müşteriyi verilen şifre ile birlikte sisteme ekle
+            var result = await userManager.CreateAsync(customer, model.Password);
+
+            // Kayıt işlemi başarılı mı kontrol et
+            if (result.Succeeded)
+            {
+                // Başarılı ise başarı sonucu döndür
+                return Result.Success();
+            }
+            else
+            {
+                // Başarısız ise hata mesajlarını döndür
+                return Result.Failure(result.Errors.Select(x => x.Description));
+            }
         }
     }
 }
