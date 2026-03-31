@@ -96,9 +96,7 @@
                             </div>
 
                             <!-- Sepete Ekle Butonu -->
-                            <button class="btn btn-primary w-100" onclick="addToCart(@product.Id)">
-                                <i class="fas fa-cart-plus"></i> Sepete Ekle
-                            </button>
+                            <a asp-action="addToCart" asp-controller="shop" asp-route-pid="@product.Id" class="btn btn-primary btn-sm w-100">🛒 Sepete Ekle</a>
                         </div>
                     </div>
                 </div>
