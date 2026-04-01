@@ -17,6 +17,6 @@ namespace Core.Abstracts.IRepositories
     public interface IProductAttributeRepository : IRepository<ProductAttribute> { }
     public interface ICartRepository : IRepository<Cart> { }
     public interface ICartItemRepository : IRepository<CartItem> { }
-   
- 
+    public interface IOrderRepository : IRepository<Order> { }
+    public interface IOrderItemRepository : IRepository<OrderItem> { }
 }

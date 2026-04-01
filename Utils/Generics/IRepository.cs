@@ -161,7 +161,7 @@ namespace Utils.Generics
         public async Task<IResult<IEnumerable<T>>> FindManyAsync(Expression<Func<T, bool>>? expression = null, params string[] includes)
         {
             var entities = expression == null? _table : _table.Where(expression);
-            if (entities == null)
+            if (entities == null || !entities.Any())
             {
                 return Result<IEnumerable<T>>.Failure(["Entities Not Found!"], 404);
             }

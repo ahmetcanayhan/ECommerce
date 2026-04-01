@@ -1,0 +1,23 @@
+﻿using AutoMapper;
+using Core.Concretes.DTOs;
+using Core.Concretes.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Business.Profiles
+{
+    public class OrderProfiles : Profile
+    {
+        public OrderProfiles()
+        {
+            CreateMap<Order, OrderDto>();
+            CreateMap<OrderItem, OrderItemDto>().ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.Product.Images.FirstOrDefault(x => x.IsCoverImage)))
+                .ForMember(dest => dest.ListPrice, opt => opt.MapFrom(src => src.Product.Price))
+                .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src => src.Product.Price * (100 - src.Product.DiscountRate) / 100));
+        }
+    }
+}

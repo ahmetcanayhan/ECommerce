@@ -26,12 +26,14 @@ namespace Business
                 cfg.AddProfile<ShowroomProfiles>();
                 cfg.AddProfile<AuthProfiles>();
                 cfg.AddProfile<ShopProfiles>();
+                cfg.AddProfile<OrderProfiles>();
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IShowroomService, ShowroomService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IShopService, ShopService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
         } 

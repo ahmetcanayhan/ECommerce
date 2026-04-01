@@ -142,11 +142,11 @@
                                 @Model.Items.Sum(i => i.DiscountedPrice * i.Quantity).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR"))
                             </strong>
                         </div>
-
-                        <button class="btn btn-success w-100 mb-2" type="button">
+                        <form asp-action="create" asp-controller="order" method="post">
+                        <button class="btn btn-success w-100 mb-2" type="submit"> 
                             Ödemeye Geç
                         </button>
-
+                        </form>
                         <button class="btn btn-outline-secondary w-100" type="button">
                             Alışverişe Devam Et
                         </button>
