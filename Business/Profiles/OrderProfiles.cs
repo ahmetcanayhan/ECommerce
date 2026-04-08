@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Business.Profiles
 {
-    //hello
     public class OrderProfiles : Profile
     {
         public OrderProfiles()
